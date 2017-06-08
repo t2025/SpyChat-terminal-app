@@ -7,7 +7,6 @@ from datetime import datetime
 STATUS_MESSAGES = ['My name is Bond, James Bond', 'Shaken, not stirred.', 'Keeping the British end up, Sir']
 #List of special words
 SPECIAL_WORDS=['SOS','SAVE ME','NEED HELP']
-
 #Starting the spychat application
 #Welcome Spy to our app
 print "Hello! Let\'s get started"
@@ -16,31 +15,23 @@ question = "Do you want to continue as " + spy.salutation + " " + spy.name + " (
 existing = raw_input(question)
 # function for adding status
 #This function will let spy to add status message and update status
-
 # Add Status function starts
-
-
 def add_status():
-
-    updated_status_message = None
-
-    if spy.current_status_message!= None:
-
-        print 'Your current status message is %s \n' % (spy.current_status_message)
-    else:
+ updated_status_message = None
+ if spy.current_status_message != None:
+  print 'Your current status message is %s \n' % (spy.current_status_message)
+ else:
         print 'You don\'t have any status message currently \n'
 
-    default = raw_input("Do you want to select from the older status (y/n)? ")
+ default = raw_input("Do you want to select from the older status (y/n)? ")
 
-    if default.upper() == "N":
+ if default.upper() == "N":
         new_status_message = raw_input("What status message do you want to set? ")
-
-
         if len(new_status_message) > 0:
             STATUS_MESSAGES.append(new_status_message)
             updated_status_message = new_status_message
 
-    elif default.upper() == 'Y':
+ elif default.upper() == 'Y':
 
         item_position = 1
 
@@ -54,15 +45,15 @@ def add_status():
         if len(STATUS_MESSAGES) >= message_selection:
             updated_status_message = STATUS_MESSAGES[message_selection - 1]
 
-    else:
+ else:
         print 'The option you chose is not valid! Press either y or n.'
 
-    if updated_status_message:
+ if updated_status_message:
         print 'Your updated status message is: %s' % (updated_status_message)
-    else:
+ else:
         print 'You current don\'t have a status update'
 
-    return updated_status_message
+ return updated_status_message
 #Add status function ends
 
 #This module will let spy to add friends to chat
@@ -148,12 +139,13 @@ def read_message():
     friends[sender].chats.append(new_chat)
 
     print "Your secret message has been saved!"
+    print secret_text
 
     text_length=len(secret_text)-secret_text.count(" ")
     if text_length>100:
      del friends[sender]
-    if"save me"in secret_text:
-        print "A spy need your help!"
+    if"save me".upper()in secret_text:
+            print "A spy need your help!"
     if "alert" in secret_text:
         print "You need to be alert"
     if "SOS"in secret_text:
@@ -171,13 +163,13 @@ def read_chat_history():
 
     for chat in friends[read_for].chats:
         if chat.sent_by_me:
-            print colored (" '[%s] %s: ' (chat.time.strftime('%d %B %Y')", 'blue')
+           print colored('["%s]'%(chat.time.strftime('%d %B %Y')),'blue')
 
-            print colored("%s'You said:,chat.message","black")
+           print colored('You said:%s'%chat.message,"grey")
         else:
-            print colored( "'[%s] %s ' % (chat.time.strftime('%d %B %Y')," "blue")
-            print colored("'%s' friends[read_for].name","red")
-            print colored("'%s'chat.message","black")
+            print colored( '[%s]  ' % (chat.time.strftime('%d %B %Y')), "blue")
+            print colored('%s'%( friends[read_for].name),"red")
+            print colored('%s'%(chat.message),"grey")
 
 #Read Chat history method ends here
 
